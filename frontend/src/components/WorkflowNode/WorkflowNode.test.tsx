@@ -1,6 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 import { ReactFlowProvider } from '@xyflow/react'
 import WorkflowNode from './WorkflowNode'
 
@@ -75,7 +74,7 @@ describe('WorkflowNode', () => {
     expect(node.className).toContain('ring-2')
   })
 
-  it('renders delete button', async () => {
+  it('renders delete button', () => {
     renderWithProvider(
       <WorkflowNode
         id="test-1"
