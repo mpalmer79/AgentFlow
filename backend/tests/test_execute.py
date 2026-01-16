@@ -45,7 +45,7 @@ def test_validate_workflow_missing_input():
                 "id": "llm-1",
                 "type": "llm",
                 "position": {"x": 0, "y": 0},
-                "data": {"label": "LLM", "model": "claude-3-sonnet", "prompt": "test"}
+                "data": {"label": "LLM", "model": "claude-4-sonnet", "prompt": "test"}
             }
         ],
         "edges": [],
@@ -73,7 +73,7 @@ def test_validate_workflow_missing_prompt():
                 "id": "llm-1",
                 "type": "llm",
                 "position": {"x": 100, "y": 0},
-                "data": {"label": "LLM", "model": "claude-3-sonnet", "prompt": ""}
+                "data": {"label": "LLM", "model": "claude-4-sonnet", "prompt": ""}
             }
         ],
         "edges": [
@@ -162,7 +162,7 @@ def test_execute_with_llm(mock_claude_class):
                 "id": "llm-1",
                 "type": "llm",
                 "position": {"x": 200, "y": 0},
-                "data": {"label": "LLM", "model": "claude-3-sonnet", "prompt": "Say hello to {{input}}"}
+                "data": {"label": "LLM", "model": "claude-4-sonnet", "prompt": "Say hello to {{input}}"}
             },
             {
                 "id": "output-1",
