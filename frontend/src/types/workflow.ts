@@ -11,7 +11,7 @@ export type NodeType =
   | 'output'
 
 // Base node data interface
-export interface BaseNodeData {
+export interface BaseNodeData extends Record<string, unknown> {
   label: string
   description?: string
   icon?: string
