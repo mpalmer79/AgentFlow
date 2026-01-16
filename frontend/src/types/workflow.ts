@@ -24,7 +24,7 @@ export interface InputNodeData extends BaseNodeData {
 }
 
 export interface LLMNodeData extends BaseNodeData {
-  model: 'claude-3-opus' | 'claude-3-sonnet' | 'claude-3-haiku'
+  model: 'claude-4-opus' | 'claude-4-sonnet' | 'claude-4-haiku'
   prompt: string
   temperature?: number
   maxTokens?: number
