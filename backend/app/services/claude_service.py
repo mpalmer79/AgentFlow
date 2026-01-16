@@ -2,9 +2,9 @@ import os
 from typing import Optional
 
 MODEL_MAP = {
-    "claude-3-opus": "claude-3-opus-20240229",
-    "claude-3-sonnet": "claude-3-sonnet-20240229", 
-    "claude-3-haiku": "claude-3-haiku-20240307",
+    "claude-4-opus": "claude-opus-4-5-20251101",
+    "claude-4-sonnet": "claude-sonnet-4-20250514",
+    "claude-4-haiku": "claude-haiku-4-5-20251001",
 }
 
 
@@ -22,7 +22,7 @@ class ClaudeService:
     async def complete(
         self,
         prompt: str,
-        model: str = "claude-3-sonnet",
+        model: str = "claude-4-sonnet",
         temperature: float = 0.7,
         max_tokens: int = 1024,
         system: Optional[str] = None,
@@ -32,7 +32,7 @@ class ClaudeService:
         if not self.client:
             return "[Claude API not configured - add ANTHROPIC_API_KEY to enable AI features]"
         
-        model_id = MODEL_MAP.get(model, MODEL_MAP["claude-3-sonnet"])
+        model_id = MODEL_MAP.get(model, MODEL_MAP["claude-4-sonnet"])
         
         try:
             message = self.client.messages.create(
