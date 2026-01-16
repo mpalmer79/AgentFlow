@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Space+Grotesk:wght@300..700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,24 +7,19 @@
 .react-flow__node {
   @apply transition-shadow duration-200;
 }
-
 .react-flow__node:hover {
   @apply shadow-lg;
 }
-
 .react-flow__node.selected {
   @apply ring-2 ring-agent-500;
 }
-
 .react-flow__edge-path {
   @apply stroke-2;
 }
-
 .react-flow__edge.animated path {
   stroke-dasharray: 5;
   animation: flow-dash 1s linear infinite;
 }
-
 @keyframes flow-dash {
   to {
     stroke-dashoffset: -10;
@@ -37,15 +31,12 @@
   width: 8px;
   height: 8px;
 }
-
 ::-webkit-scrollbar-track {
   @apply bg-canvas-bg;
 }
-
 ::-webkit-scrollbar-thumb {
   @apply bg-canvas-border rounded-full;
 }
-
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-canvas-hover;
 }
@@ -54,27 +45,21 @@
 .node-input {
   @apply bg-emerald-900/50 border-emerald-500;
 }
-
 .node-llm {
   @apply bg-violet-900/50 border-violet-500;
 }
-
 .node-tool {
   @apply bg-amber-900/50 border-amber-500;
 }
-
 .node-router {
   @apply bg-blue-900/50 border-blue-500;
 }
-
 .node-loop {
   @apply bg-cyan-900/50 border-cyan-500;
 }
-
 .node-transform {
   @apply bg-pink-900/50 border-pink-500;
 }
-
 .node-output {
   @apply bg-rose-900/50 border-rose-500;
 }
@@ -83,11 +68,9 @@
 .node-executing {
   @apply animate-pulse ring-2 ring-yellow-400;
 }
-
 .node-success {
   @apply ring-2 ring-green-400;
 }
-
 .node-error {
   @apply ring-2 ring-red-400;
 }
@@ -108,14 +91,12 @@
 .btn-glow {
   @apply relative overflow-hidden;
 }
-
 .btn-glow::before {
   content: '';
   @apply absolute inset-0 bg-gradient-to-r from-agent-500/0 via-agent-500/30 to-agent-500/0;
   transform: translateX(-100%);
   transition: transform 0.3s ease;
 }
-
 .btn-glow:hover::before {
   transform: translateX(100%);
 }
@@ -125,7 +106,6 @@
   from { opacity: 0; }
   to { opacity: 1; }
 }
-
 @keyframes zoom-in-95 {
   from { 
     opacity: 0;
@@ -136,16 +116,50 @@
     transform: scale(1);
   }
 }
-
 .animate-in {
   animation-duration: 200ms;
   animation-fill-mode: both;
 }
-
 .fade-in {
   animation-name: fade-in;
 }
-
 .zoom-in-95 {
   animation-name: zoom-in-95;
+}
+
+/* Mobile bottom sheet animation */
+@keyframes slide-up {
+  from { 
+    transform: translateY(100%);
+  }
+  to { 
+    transform: translateY(0);
+  }
+}
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out;
+}
+
+/* Touch-friendly tap targets */
+@media (max-width: 1023px) {
+  .react-flow__node {
+    min-width: 120px;
+    min-height: 60px;
+  }
+  
+  .react-flow__handle {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .react-flow__controls {
+    bottom: 80px !important;
+  }
+}
+
+/* Safe area insets for mobile */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
 }
