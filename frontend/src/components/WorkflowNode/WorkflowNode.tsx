@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { Handle, Position, NodeProps } from '@xyflow/react'
+import { Handle, Position } from '@xyflow/react'
 import { 
   MessageSquare, 
   Wrench, 
@@ -10,8 +10,19 @@ import {
   LogOut,
   X
 } from 'lucide-react'
-import { WorkflowNodeData, NodeType } from '../../types/workflow'
+import { NodeType } from '../../types/workflow'
 import { useWorkflowStore } from '../../store/workflowStore'
+
+interface WorkflowNodeProps {
+  id: string
+  type?: string
+  data: {
+    label: string
+    description?: string
+    [key: string]: unknown
+  }
+  selected?: boolean
+}
 
 const nodeIcons: Record<NodeType, React.ComponentType<{ className?: string }>> = {
   input: LogIn,
@@ -33,8 +44,8 @@ const nodeColors: Record<NodeType, { bg: string; border: string; icon: string }>
   output: { bg: 'bg-rose-900/50', border: 'border-rose-500', icon: 'text-rose-400' },
 }
 
-function WorkflowNode({ id, type, data, selected }: NodeProps<WorkflowNodeData>) {
-  const nodeType = type as NodeType
+function WorkflowNode({ id, type, data, selected }: WorkflowNodeProps) {
+  const nodeType = (type || 'llm') as NodeType
   const Icon = nodeIcons[nodeType] || MessageSquare
   const colors = nodeColors[nodeType] || nodeColors.llm
   
@@ -54,7 +65,7 @@ function WorkflowNode({ id, type, data, selected }: NodeProps<WorkflowNodeData>)
     <div
       data-testid={`workflow-node-${id}`}
       className={`
-        relative min-w-[180px] rounded-xl border-2 backdrop-blur-sm
+        relative min-w-[180px] rounded-xl border-2 backdrop-blur-sm group
         ${colors.bg} ${colors.border}
         ${selected ? 'ring-2 ring-agent-500 ring-offset-2 ring-offset-canvas-bg' : ''}
         ${isExecuting ? 'animate-pulse ring-2 ring-yellow-400' : ''}
@@ -113,7 +124,7 @@ function WorkflowNode({ id, type, data, selected }: NodeProps<WorkflowNodeData>)
         )}
       </div>
 
-      {nodeType !== 'output' && (
+      {nodeType !== 'output' && nodeType !== 'router' && (
         <Handle
           type="source"
           position={Position.Right}
