@@ -126,8 +126,9 @@ export default function Canvas() {
           className="!bg-canvas-surface !border-canvas-border !rounded-lg overflow-hidden"
           showInteractive={false}
         />
+        {/* Hide MiniMap on mobile for more canvas space */}
         <MiniMap
-          className="!bg-canvas-surface !border-canvas-border !rounded-lg"
+          className="!bg-canvas-surface !border-canvas-border !rounded-lg hidden sm:block"
           nodeColor={(node) => getNodeColor(node.type as NodeType)}
           maskColor="rgba(0, 0, 0, 0.8)"
         />
