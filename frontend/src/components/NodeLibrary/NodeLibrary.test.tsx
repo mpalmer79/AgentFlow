@@ -42,7 +42,9 @@ describe('NodeLibrary', () => {
 
   it('renders help text', () => {
     render(<NodeLibrary />)
-    expect(screen.getByText(/Drag nodes onto the canvas/i)).toBeInTheDocument()
+    expect(screen.getByText('Drag & drop')).toBeInTheDocument()
+    expect(screen.getByText('Connect')).toBeInTheDocument()
+    expect(screen.getByText('Click')).toBeInTheDocument()
   })
 })
 
