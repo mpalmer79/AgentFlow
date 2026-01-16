@@ -17,56 +17,84 @@ export default function ConfigPanel() {
   }
 
   return (
-    <aside 
-      className="w-80 border-l border-canvas-border bg-canvas-surface/50 flex flex-col"
-      data-testid="config-panel"
-    >
-      <div className="p-4 border-b border-canvas-border flex items-center justify-between">
-        <div>
-          <h2 className="font-display font-semibold text-sm">Configure Node</h2>
-          <p className="text-xs text-gray-500 capitalize">{nodeType} Node</p>
+    <>
+      {/* Mobile backdrop */}
+      <div 
+        className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+        onClick={() => toggleConfigPanel(false)}
+      />
+      
+      {/* Panel - bottom sheet on mobile, sidebar on desktop */}
+      <aside 
+        className="
+          fixed lg:relative
+          inset-x-0 bottom-0 lg:inset-auto
+          z-50 lg:z-auto
+          max-h-[70vh] lg:max-h-none
+          w-full lg:w-80
+          rounded-t-2xl lg:rounded-none
+          border-t lg:border-t-0 lg:border-l border-canvas-border 
+          bg-canvas-surface/95 backdrop-blur-sm lg:bg-canvas-surface/50
+          flex flex-col
+          animate-slide-up lg:animate-none
+        "
+        data-testid="config-panel"
+      >
+        {/* Mobile drag handle */}
+        <div className="flex justify-center py-2 lg:hidden">
+          <div className="w-12 h-1.5 rounded-full bg-gray-600" />
         </div>
-        <button
-          onClick={() => toggleConfigPanel(false)}
-          className="p-1.5 rounded-lg hover:bg-canvas-hover transition-colors"
-          data-testid="close-config-panel"
-        >
-          <X className="w-4 h-4" />
-        </button>
-      </div>
-
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        <div>
-          <label className="block text-xs font-medium text-gray-400 mb-1.5">Label</label>
-          <input
-            type="text"
-            value={selectedNode.data.label}
-            onChange={(e) => handleUpdate({ label: e.target.value })}
-            className="w-full px-3 py-2 bg-canvas-bg border border-canvas-border rounded-lg text-sm focus:outline-none focus:border-agent-500 transition-colors"
-            data-testid="config-label"
-          />
+        
+        <div className="p-4 border-b border-canvas-border flex items-center justify-between">
+          <div>
+            <h2 className="font-display font-semibold text-sm">Configure Node</h2>
+            <p className="text-xs text-gray-500 capitalize">{nodeType} Node</p>
+          </div>
+          <button
+            onClick={() => toggleConfigPanel(false)}
+            className="p-1.5 rounded-lg hover:bg-canvas-hover transition-colors"
+            data-testid="close-config-panel"
+          >
+            <X className="w-4 h-4" />
+          </button>
         </div>
 
-        <div>
-          <label className="block text-xs font-medium text-gray-400 mb-1.5">Description</label>
-          <textarea
-            value={selectedNode.data.description || ''}
-            onChange={(e) => handleUpdate({ description: e.target.value })}
-            placeholder="Optional description..."
-            rows={2}
-            className="w-full px-3 py-2 bg-canvas-bg border border-canvas-border rounded-lg text-sm focus:outline-none focus:border-agent-500 transition-colors resize-none"
-            data-testid="config-description"
-          />
-        </div>
+        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          <div>
+            <label className="block text-xs font-medium text-gray-400 mb-1.5">Label</label>
+            <input
+              type="text"
+              value={selectedNode.data.label}
+              onChange={(e) => handleUpdate({ label: e.target.value })}
+              className="w-full px-3 py-2 bg-canvas-bg border border-canvas-border rounded-lg text-sm focus:outline-none focus:border-agent-500 transition-colors"
+              data-testid="config-label"
+            />
+          </div>
 
-        {nodeType === 'input' && <InputConfig data={selectedNode.data as InputNodeData} onUpdate={handleUpdate} />}
-        {nodeType === 'llm' && <LLMConfig data={selectedNode.data as LLMNodeData} onUpdate={handleUpdate} />}
-        {nodeType === 'tool' && <ToolConfig data={selectedNode.data as ToolNodeData} onUpdate={handleUpdate} />}
-        {nodeType === 'router' && <RouterConfig data={selectedNode.data as RouterNodeData} onUpdate={handleUpdate} />}
-        {nodeType === 'transform' && <TransformConfig data={selectedNode.data as TransformNodeData} onUpdate={handleUpdate} />}
-        {nodeType === 'output' && <OutputConfig data={selectedNode.data as OutputNodeData} onUpdate={handleUpdate} />}
-      </div>
-    </aside>
+          <div>
+            <label className="block text-xs font-medium text-gray-400 mb-1.5">Description</label>
+            <textarea
+              value={selectedNode.data.description || ''}
+              onChange={(e) => handleUpdate({ description: e.target.value })}
+              placeholder="Optional description..."
+              rows={2}
+              className="w-full px-3 py-2 bg-canvas-bg border border-canvas-border rounded-lg text-sm focus:outline-none focus:border-agent-500 transition-colors resize-none"
+              data-testid="config-description"
+            />
+          </div>
+
+          {nodeType === 'input' && <InputConfig data={selectedNode.data as InputNodeData} onUpdate={handleUpdate} />}
+          {nodeType === 'llm' && <LLMConfig data={selectedNode.data as LLMNodeData} onUpdate={handleUpdate} />}
+          {nodeType === 'tool' && <ToolConfig data={selectedNode.data as ToolNodeData} onUpdate={handleUpdate} />}
+          {nodeType === 'router' && <RouterConfig data={selectedNode.data as RouterNodeData} onUpdate={handleUpdate} />}
+          {nodeType === 'transform' && <TransformConfig data={selectedNode.data as TransformNodeData} onUpdate={handleUpdate} />}
+          {nodeType === 'output' && <OutputConfig data={selectedNode.data as OutputNodeData} onUpdate={handleUpdate} />}
+        </div>
+        
+        {/* Mobile safe area padding */}
+        <div className="h-6 lg:hidden" />
+      </aside>
+    </>
   )
 }
 
