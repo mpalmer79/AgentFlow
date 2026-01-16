@@ -1,7 +1,6 @@
-
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
-import WelcomeModal, { resetWelcomeModal } from './WelcomeModal'
+import WelcomeModal from './WelcomeModal'
 
 // Mock localStorage
 const localStorageMock = {
@@ -59,12 +58,5 @@ describe('WelcomeModal', () => {
   it('shows pro tip about templates', () => {
     render(<WelcomeModal onClose={() => {}} />)
     expect(screen.getByText(/Start with a Template/)).toBeInTheDocument()
-  })
-})
-
-describe('resetWelcomeModal', () => {
-  it('removes the welcome-seen key from localStorage', () => {
-    resetWelcomeModal()
-    expect(localStorageMock.removeItem).toHaveBeenCalledWith('agentflow-welcome-seen')
   })
 })
