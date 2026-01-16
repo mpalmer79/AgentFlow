@@ -18,7 +18,7 @@ describe('ConfigPanel', () => {
       id: 'test-node',
       type: 'llm',
       position: { x: 100, y: 100 },
-      data: { label: 'Test LLM', model: 'claude-3-sonnet', prompt: '' },
+      data: { label: 'Test LLM', model: 'claude-4-sonnet', prompt: '' },
     })
     useWorkflowStore.getState().selectNode('test-node')
 
@@ -31,7 +31,7 @@ describe('ConfigPanel', () => {
       id: 'test-node',
       type: 'llm',
       position: { x: 100, y: 100 },
-      data: { label: 'Test', model: 'claude-3-sonnet', prompt: '' },
+      data: { label: 'Test', model: 'claude-4-sonnet', prompt: '' },
     })
     useWorkflowStore.getState().selectNode('test-node')
 
@@ -44,7 +44,7 @@ describe('ConfigPanel', () => {
       id: 'test-node',
       type: 'llm',
       position: { x: 100, y: 100 },
-      data: { label: 'Test', model: 'claude-3-sonnet', prompt: '' },
+      data: { label: 'Test', model: 'claude-4-sonnet', prompt: '' },
     })
     useWorkflowStore.getState().selectNode('test-node')
 
@@ -64,7 +64,7 @@ describe('ConfigPanel - Label and Description', () => {
       id: 'test-node',
       type: 'llm',
       position: { x: 100, y: 100 },
-      data: { label: 'Original Label', model: 'claude-3-sonnet', prompt: '' },
+      data: { label: 'Original Label', model: 'claude-4-sonnet', prompt: '' },
     })
     useWorkflowStore.getState().selectNode('test-node')
   })
@@ -95,7 +95,7 @@ describe('ConfigPanel - LLM Node', () => {
       id: 'llm-node',
       type: 'llm',
       position: { x: 100, y: 100 },
-      data: { label: 'LLM', model: 'claude-3-sonnet', prompt: 'Test prompt', temperature: 0.7 },
+      data: { label: 'LLM', model: 'claude-4-sonnet', prompt: 'Test prompt', temperature: 0.7 },
     })
     useWorkflowStore.getState().selectNode('llm-node')
   })
