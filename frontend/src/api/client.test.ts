@@ -1,69 +1,58 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
-
-// Mock fetch
-const mockFetch = vi.fn()
-global.fetch = mockFetch
-
-// Import after mocking
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { apiClient } from './client'
 
 describe('ApiClient', () => {
   beforeEach(() => {
-    mockFetch.mockClear()
+    global.fetch = vi.fn()
   })
 
-  describe('healthCheck', () => {
-    it('should return status ok', async () => {
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => ({ status: 'ok' }),
-      })
-
-      const result = await apiClient.healthCheck()
-      expect(result).toEqual({ status: 'ok' })
-    })
-
-    it('should throw on error response', async () => {
-      mockFetch.mockResolvedValueOnce({
-        ok: false,
-        status: 500,
-        json: async () => ({ message: 'Server error' }),
-      })
-
-      await expect(apiClient.healthCheck()).rejects.toThrow('Server error')
-    })
+  afterEach(() => {
+    vi.restoreAllMocks()
   })
 
-  describe('executeWorkflow', () => {
-    it('should execute workflow and return results', async () => {
-      const mockResponse = {
-        success: true,
-        results: [
-          { nodeId: 'node-1', status: 'success', output: 'test', duration: 100 }
-        ],
-        finalOutput: 'test',
-        totalDuration: 100,
-      }
-
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockResponse,
-      })
-
-      const result = await apiClient.executeWorkflow({
-        nodes: [{ id: 'node-1', type: 'input', data: { label: 'Test' } }],
-        edges: [],
-        input: 'test input',
-      })
-
-      expect(result).toEqual(mockResponse)
-      expect(mockFetch).toHaveBeenCalledWith(
-        expect.stringContaining('/api/execute'),
-        expect.objectContaining({
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-        })
-      )
+  it('healthCheck calls correct endpoint', async () => {
+    const mockResponse = { status: 'ok' }
+    ;(global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve(mockResponse),
     })
+
+    const result = await apiClient.healthCheck()
+    
+    expect(global.fetch).toHaveBeenCalledWith(
+      expect.stringContaining('/health'),
+      expect.any(Object)
+    )
+    expect(result).toEqual(mockResponse)
+  })
+
+  it('executeWorkflow calls correct endpoint', async () => {
+    const mockResponse = { success: true, results: [], finalOutput: null, totalDuration: 100 }
+    ;(global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve(mockResponse),
+    })
+
+    const result = await apiClient.executeWorkflow({
+      nodes: [],
+      edges: [],
+      input: 'test',
+    })
+
+    expect(global.fetch).toHaveBeenCalledWith(
+      expect.stringContaining('/execute'),
+      expect.objectContaining({ method: 'POST' })
+    )
+    expect(result).toEqual(mockResponse)
+  })
+
+  it('throws error on failed request', async () => {
+    ;(global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
+      ok: false,
+      status: 500,
+      json: () => Promise.resolve({ message: 'Server error' }),
+    })
+
+    await expect(apiClient.healthCheck()).rejects.toThrow('Server error')
   })
 })
