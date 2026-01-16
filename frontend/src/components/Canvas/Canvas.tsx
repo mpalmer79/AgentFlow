@@ -13,6 +13,7 @@ import '@xyflow/react/dist/style.css'
 
 import { useWorkflowStore } from '../../store/workflowStore'
 import WorkflowNode from '../WorkflowNode/WorkflowNode'
+import EmptyCanvasState from '../EmptyCanvasState/EmptyCanvasState'
 import { NodeType, WorkflowNodeData } from '../../types/workflow'
 
 const nodeTypes: NodeTypes = {
@@ -92,7 +93,10 @@ export default function Canvas() {
   )
 
   return (
-    <div className="w-full h-full" data-testid="workflow-canvas">
+    <div className="w-full h-full relative" data-testid="workflow-canvas">
+      {/* Empty state overlay */}
+      {nodes.length === 0 && <EmptyCanvasState />}
+      
       <ReactFlow
         nodes={nodes}
         edges={edges}
