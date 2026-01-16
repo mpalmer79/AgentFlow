@@ -23,7 +23,7 @@ class NodeData(BaseModel):
     placeholder: Optional[str] = None
     
     # LLM node fields
-    model: Optional[Literal["claude-3-opus", "claude-3-sonnet", "claude-3-haiku"]] = None
+    model: Optional[Literal["claude-4-opus", "claude-4-sonnet", "claude-4-haiku"]] = None
     prompt: Optional[str] = None
     temperature: Optional[float] = Field(default=0.7, ge=0, le=1)
     maxTokens: Optional[int] = None
