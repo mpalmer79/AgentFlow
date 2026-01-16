@@ -1,8 +1,6 @@
 import os
 from typing import Optional
-from anthropic import Anthropic, APIError
 
-# Model mapping
 MODEL_MAP = {
     "claude-3-opus": "claude-3-opus-20240229",
     "claude-3-sonnet": "claude-3-sonnet-20240229", 
@@ -14,11 +12,12 @@ class ClaudeService:
     """Service for interacting with Claude API."""
     
     def __init__(self):
-        api_key = os.getenv("ANTHROPIC_API_KEY")
-        if not api_key:
-            raise ValueError("ANTHROPIC_API_KEY environment variable is required")
+        self.api_key = os.getenv("ANTHROPIC_API_KEY")
+        self.client = None
         
-        self.client = Anthropic(api_key=api_key)
+        if self.api_key:
+            from anthropic import Anthropic
+            self.client = Anthropic(api_key=self.api_key)
     
     async def complete(
         self,
@@ -30,7 +29,9 @@ class ClaudeService:
     ) -> str:
         """Generate a completion from Claude."""
         
-        # Map friendly model names to API model IDs
+        if not self.client:
+            return "[Claude API not configured - add ANTHROPIC_API_KEY to enable AI features]"
+        
         model_id = MODEL_MAP.get(model, MODEL_MAP["claude-3-sonnet"])
         
         try:
@@ -39,42 +40,12 @@ class ClaudeService:
                 max_tokens=max_tokens,
                 temperature=temperature,
                 system=system or "You are a helpful AI assistant.",
-                messages=[
-                    {"role": "user", "content": prompt}
-                ],
+                messages=[{"role": "user", "content": prompt}],
             )
             
-            # Extract text from response
             if message.content and len(message.content) > 0:
                 return message.content[0].text
-            
             return ""
             
-        except APIError as e:
-            raise Exception(f"Claude API error: {e.message}")
-    
-    async def complete_with_context(
-        self,
-        prompt: str,
-        context: dict,
-        model: str = "claude-3-sonnet",
-        temperature: float = 0.7,
-    ) -> str:
-        """Generate a completion with additional context."""
-        
-        # Build context string
-        context_str = "\n".join([
-            f"{key}: {value}" for key, value in context.items()
-        ])
-        
-        full_prompt = f"""Context:
-{context_str}
-
-Task:
-{prompt}"""
-        
-        return await self.complete(
-            prompt=full_prompt,
-            model=model,
-            temperature=temperature,
-        )
+        except Exception as e:
+            return f"[Claude API error: {str(e)}]"
