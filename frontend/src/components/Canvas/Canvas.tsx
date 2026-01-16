@@ -139,7 +139,7 @@ function getDefaultNodeData(type: NodeType, label: string): WorkflowNodeData {
     case 'input':
       return { ...baseData, inputType: 'text', placeholder: 'Enter your input...' }
     case 'llm':
-      return { ...baseData, model: 'claude-3-sonnet', prompt: '', temperature: 0.7 }
+      return { ...baseData, model: 'claude-4-sonnet', prompt: '', temperature: 0.7 }
     case 'tool':
       return { ...baseData, toolType: 'web-search' }
     case 'router':
