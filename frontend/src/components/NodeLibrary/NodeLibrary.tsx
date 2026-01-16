@@ -6,7 +6,8 @@ import {
   Sparkles,
   LogIn,
   LogOut,
-  Search
+  Search,
+  X
 } from 'lucide-react'
 import { useState } from 'react'
 import { NodeType } from '../../types/workflow'
@@ -17,6 +18,12 @@ interface NodeDefinition {
   description: string
   icon: React.ComponentType<{ className?: string }>
   color: string
+}
+
+interface NodeLibraryProps {
+  isOpen?: boolean
+  onClose?: () => void
+  isMobile?: boolean
 }
 
 const nodeDefinitions: NodeDefinition[] = [
@@ -71,7 +78,7 @@ const nodeDefinitions: NodeDefinition[] = [
   },
 ]
 
-export default function NodeLibrary() {
+export default function NodeLibrary({ isOpen = true, onClose, isMobile = false }: NodeLibraryProps) {
   const [searchQuery, setSearchQuery] = useState('')
 
   const filteredNodes = nodeDefinitions.filter(
@@ -86,13 +93,33 @@ export default function NodeLibrary() {
     event.dataTransfer.effectAllowed = 'move'
   }
 
+  // Mobile: slide-in panel
+  // Desktop: collapsible sidebar
+  const sidebarClasses = isMobile
+    ? `fixed inset-y-0 left-0 z-50 w-72 transform transition-transform duration-300 ease-in-out ${
+        isOpen ? 'translate-x-0' : '-translate-x-full'
+      }`
+    : `hidden lg:flex transition-all duration-300 ease-in-out ${
+        isOpen ? 'w-64' : 'w-0 overflow-hidden'
+      }`
+
   return (
     <aside 
-      className="w-64 border-r border-canvas-border bg-canvas-surface/50 flex flex-col"
+      className={`${sidebarClasses} border-r border-canvas-border bg-canvas-surface/95 backdrop-blur-sm flex-col`}
       data-testid="node-library"
     >
       <div className="p-4 border-b border-canvas-border">
-        <h2 className="font-display font-semibold text-sm mb-3">Nodes</h2>
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="font-display font-semibold text-sm">Nodes</h2>
+          {isMobile && onClose && (
+            <button 
+              onClick={onClose}
+              className="p-1.5 rounded-lg hover:bg-canvas-hover transition-colors lg:hidden"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          )}
+        </div>
         
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
