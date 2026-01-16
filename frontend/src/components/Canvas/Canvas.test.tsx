@@ -54,7 +54,7 @@ describe('Canvas', () => {
       id: 'node-2',
       type: 'llm',
       position: { x: 300, y: 100 },
-      data: { label: 'LLM', model: 'claude-3-sonnet', prompt: 'Test' },
+      data: { label: 'LLM', model: 'claude-4-sonnet', prompt: 'Test' },
     })
 
     render(<CanvasWithProvider />)
@@ -124,7 +124,7 @@ describe('Canvas node operations', () => {
       id: 'node-2',
       type: 'llm',
       position: { x: 300, y: 100 },
-      data: { label: 'LLM', model: 'claude-3-sonnet', prompt: '' },
+      data: { label: 'LLM', model: 'claude-4-sonnet', prompt: '' },
     })
 
     useWorkflowStore.getState().addEdge({
@@ -153,7 +153,7 @@ describe('Canvas node operations', () => {
       id: 'node-2',
       type: 'llm',
       position: { x: 300, y: 100 },
-      data: { label: 'LLM', model: 'claude-3-sonnet', prompt: '' },
+      data: { label: 'LLM', model: 'claude-4-sonnet', prompt: '' },
     })
     useWorkflowStore.getState().addEdge({
       source: 'node-1',
