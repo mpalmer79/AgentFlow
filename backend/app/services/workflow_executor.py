@@ -110,7 +110,7 @@ class WorkflowExecutor:
         prompt = data.prompt or ""
         prompt = self._replace_variables(prompt, input_data)
         claude = self._get_claude()
-        return await claude.complete(prompt=prompt, model=data.model or "claude-3-sonnet", temperature=data.temperature or 0.7)
+        return await claude.complete(prompt=prompt, model=data.model or "claude-4-sonnet", temperature=data.temperature or 0.7)
     
     async def _process_tool(self, data: Any, input_data: Any) -> Any:
         tool_type = data.toolType
