@@ -2,6 +2,8 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { apiClient } from './client'
 
 describe('ApiClient', () => {
+  const mockFetch = () => global.fetch as ReturnType<typeof vi.fn>
+
   beforeEach(() => {
     global.fetch = vi.fn()
   })
@@ -12,13 +14,13 @@ describe('ApiClient', () => {
 
   it('healthCheck calls correct endpoint', async () => {
     const mockResponse = { status: 'ok' }
-    ;(global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
+    mockFetch().mockResolvedValueOnce({
       ok: true,
       json: () => Promise.resolve(mockResponse),
     })
 
     const result = await apiClient.healthCheck()
-    
+
     expect(global.fetch).toHaveBeenCalledWith(
       expect.stringContaining('/health'),
       expect.any(Object)
@@ -28,7 +30,7 @@ describe('ApiClient', () => {
 
   it('executeWorkflow calls correct endpoint', async () => {
     const mockResponse = { success: true, results: [], finalOutput: null, totalDuration: 100 }
-    ;(global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
+    mockFetch().mockResolvedValueOnce({
       ok: true,
       json: () => Promise.resolve(mockResponse),
     })
@@ -47,7 +49,7 @@ describe('ApiClient', () => {
   })
 
   it('throws error on failed request', async () => {
-    ;(global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
+    mockFetch().mockResolvedValueOnce({
       ok: false,
       status: 500,
       json: () => Promise.resolve({ message: 'Server error' }),
