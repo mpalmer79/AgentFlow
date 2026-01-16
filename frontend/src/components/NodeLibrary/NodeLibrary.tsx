@@ -138,10 +138,25 @@ export default function NodeLibrary() {
         )}
       </div>
 
-      <div className="p-4 border-t border-canvas-border">
-        <p className="text-xs text-gray-500">
-          Drag nodes onto the canvas to build your workflow
-        </p>
+      <div className="p-4 border-t border-canvas-border space-y-3">
+        <div className="flex items-start gap-2">
+          <div className="w-1.5 h-1.5 rounded-full bg-agent-400 mt-1.5 animate-pulse" />
+          <p className="text-xs text-gray-400">
+            <span className="text-white font-medium">Drag & drop</span> nodes onto the canvas
+          </p>
+        </div>
+        <div className="flex items-start gap-2">
+          <div className="w-1.5 h-1.5 rounded-full bg-flow-400 mt-1.5" />
+          <p className="text-xs text-gray-400">
+            <span className="text-white font-medium">Connect</span> nodes by dragging between handles
+          </p>
+        </div>
+        <div className="flex items-start gap-2">
+          <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-1.5" />
+          <p className="text-xs text-gray-400">
+            <span className="text-white font-medium">Click</span> any node to configure it
+          </p>
+        </div>
       </div>
     </aside>
   )
