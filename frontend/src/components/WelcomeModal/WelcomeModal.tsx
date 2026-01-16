@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react'
 import { 
   X, 
@@ -142,9 +141,4 @@ export default function WelcomeModal({ onClose, onStartTour }: WelcomeModalProps
       </div>
     </div>
   )
-}
-
-// Helper to reset welcome state (for testing)
-export function resetWelcomeModal() {
-  localStorage.removeItem(STORAGE_KEY)
 }
