@@ -37,7 +37,7 @@ interface WorkflowState {
   clearWorkflow: () => void
 }
 
-export const useWorkflowStore = create<WorkflowState>((set, get) => ({
+export const useWorkflowStore = create<WorkflowState>((set) => ({
   nodes: [],
   edges: [],
   workflowName: 'Untitled Workflow',
