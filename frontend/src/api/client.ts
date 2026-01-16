@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://agentflow.up.railway.app'
 
 export interface ExecuteWorkflowRequest {
   nodes: Array<{
@@ -72,7 +72,16 @@ class ApiClient {
   async executeWorkflow(
     request: ExecuteWorkflowRequest
   ): Promise<ExecuteWorkflowResponse> {
-    return this.request('/api/execute', {
+    return this.request('/api/v1/execute', {
+      method: 'POST',
+      body: JSON.stringify(request),
+    })
+  }
+
+  async validateWorkflow(
+    request: ExecuteWorkflowRequest
+  ): Promise<{ valid: boolean; errors: string[]; warnings: string[] }> {
+    return this.request('/api/v1/execute/validate', {
       method: 'POST',
       body: JSON.stringify(request),
     })
