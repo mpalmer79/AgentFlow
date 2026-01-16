@@ -71,7 +71,7 @@ describe('workflowStore', () => {
         id: 'node-2',
         type: 'llm',
         position: { x: 300, y: 100 },
-        data: { label: 'LLM', model: 'claude-3-sonnet', prompt: 'Test' },
+        data: { label: 'LLM', model: 'claude-4-sonnet', prompt: 'Test' },
       }
 
       useWorkflowStore.getState().addNode(node1)
