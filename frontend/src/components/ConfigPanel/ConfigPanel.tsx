@@ -112,9 +112,9 @@ function LLMConfig({ data, onUpdate }: { data: LLMNodeData; onUpdate: (updates: 
           className="w-full px-3 py-2 bg-canvas-bg border border-canvas-border rounded-lg text-sm focus:outline-none focus:border-agent-500"
           data-testid="config-model"
         >
-          <option value="claude-3-opus">Claude 3 Opus</option>
-          <option value="claude-3-sonnet">Claude 3 Sonnet</option>
-          <option value="claude-3-haiku">Claude 3 Haiku</option>
+          <option value="claude-4-opus">Claude 4 Opus</option>
+          <option value="claude-4-sonnet">Claude 4 Sonnet</option>
+          <option value="claude-4-haiku">Claude 4 Haiku</option>
         </select>
       </div>
       <div>
