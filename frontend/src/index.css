@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Space+Grotesk:wght@300..700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* React Flow customization */
+.react-flow__node {
+  @apply transition-shadow duration-200;
+}
+
+.react-flow__node:hover {
+  @apply shadow-lg;
+}
+
+.react-flow__node.selected {
+  @apply ring-2 ring-agent-500;
+}
+
+.react-flow__edge-path {
+  @apply stroke-2;
+}
+
+.react-flow__edge.animated path {
+  stroke-dasharray: 5;
+  animation: flow-dash 1s linear infinite;
+}
+
+@keyframes flow-dash {
+  to {
+    stroke-dashoffset: -10;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-canvas-bg;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-canvas-border rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-canvas-hover;
+}
+
+/* Node type colors */
+.node-input {
+  @apply bg-emerald-900/50 border-emerald-500;
+}
+
+.node-llm {
+  @apply bg-violet-900/50 border-violet-500;
+}
+
+.node-tool {
+  @apply bg-amber-900/50 border-amber-500;
+}
+
+.node-router {
+  @apply bg-blue-900/50 border-blue-500;
+}
+
+.node-loop {
+  @apply bg-cyan-900/50 border-cyan-500;
+}
+
+.node-transform {
+  @apply bg-pink-900/50 border-pink-500;
+}
+
+.node-output {
+  @apply bg-rose-900/50 border-rose-500;
+}
+
+/* Execution states */
+.node-executing {
+  @apply animate-pulse ring-2 ring-yellow-400;
+}
+
+.node-success {
+  @apply ring-2 ring-green-400;
+}
+
+.node-error {
+  @apply ring-2 ring-red-400;
+}
+
+/* Gradient backgrounds */
+.gradient-bg {
+  background: radial-gradient(ellipse at top, rgba(14, 165, 233, 0.15) 0%, transparent 50%),
+              radial-gradient(ellipse at bottom, rgba(217, 70, 239, 0.1) 0%, transparent 50%),
+              #0f0f13;
+}
+
+/* Glass effect */
+.glass {
+  @apply bg-white/5 backdrop-blur-xl border border-white/10;
+}
+
+/* Button hover effect */
+.btn-glow {
+  @apply relative overflow-hidden;
+}
+
+.btn-glow::before {
+  content: '';
+  @apply absolute inset-0 bg-gradient-to-r from-agent-500/0 via-agent-500/30 to-agent-500/0;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.btn-glow:hover::before {
+  transform: translateX(100%);
+}
