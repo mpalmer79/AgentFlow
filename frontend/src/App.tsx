@@ -5,12 +5,14 @@ import Canvas from './components/Canvas/Canvas'
 import NodeLibrary from './components/NodeLibrary/NodeLibrary'
 import ConfigPanel from './components/ConfigPanel/ConfigPanel'
 import ExecutionTrace from './components/ExecutionTrace/ExecutionTrace'
+import WelcomeModal from './components/WelcomeModal/WelcomeModal'
 import { useWorkflowStore } from './store/workflowStore'
 
 type View = 'landing' | 'editor'
 
 function App() {
   const [view, setView] = useState<View>('landing')
+  const [showWelcome, setShowWelcome] = useState(true)
   const { isConfigPanelOpen, executionTrace } = useWorkflowStore()
 
   if (view === 'landing') {
@@ -20,6 +22,14 @@ function App() {
   return (
     <ReactFlowProvider>
       <div className="h-screen w-screen flex flex-col gradient-bg overflow-hidden">
+        {/* Welcome Modal */}
+        {showWelcome && (
+          <WelcomeModal 
+            onClose={() => setShowWelcome(false)}
+            onStartTour={() => setShowWelcome(false)}
+          />
+        )}
+        
         {/* Header */}
         <header className="h-14 border-b border-canvas-border flex items-center justify-between px-4 glass">
           <div className="flex items-center gap-3">
@@ -37,6 +47,12 @@ function App() {
           <div className="flex items-center gap-2">
             <button className="px-4 py-1.5 text-sm text-gray-400 hover:text-white transition-colors">
               Templates
+            </button>
+            <button 
+              onClick={() => setShowWelcome(true)}
+              className="px-4 py-1.5 text-sm text-gray-400 hover:text-white transition-colors"
+            >
+              Help
             </button>
             <button className="px-4 py-1.5 text-sm bg-agent-600 hover:bg-agent-500 rounded-lg transition-colors btn-glow">
               Run Workflow
