@@ -20,9 +20,9 @@ const templates: WorkflowTemplate[] = [
       name: 'Trip Planner',
       nodes: [
         { id: 'input-1', type: 'input', position: { x: 50, y: 150 }, data: { label: 'Trip Details', inputType: 'text', placeholder: 'Where do you want to go?' } },
-        { id: 'llm-1', type: 'llm', position: { x: 300, y: 100 }, data: { label: 'Research Destination', model: 'claude-3-sonnet', prompt: 'Research the best things to do in {{input}}' } },
+        { id: 'llm-1', type: 'llm', position: { x: 300, y: 100 }, data: { label: 'Research Destination', model: 'claude-4-sonnet', prompt: 'Research the best things to do in {{input}}' } },
         { id: 'tool-1', type: 'tool', position: { x: 300, y: 250 }, data: { label: 'Search Flights', toolType: 'web-search' } },
-        { id: 'llm-2', type: 'llm', position: { x: 550, y: 150 }, data: { label: 'Create Itinerary', model: 'claude-3-sonnet', prompt: 'Create a detailed itinerary based on the research' } },
+        { id: 'llm-2', type: 'llm', position: { x: 550, y: 150 }, data: { label: 'Create Itinerary', model: 'claude-4-sonnet', prompt: 'Create a detailed itinerary based on the research' } },
         { id: 'output-1', type: 'output', position: { x: 800, y: 150 }, data: { label: 'Trip Plan', outputType: 'display' } },
       ],
       edges: [
@@ -47,7 +47,7 @@ const templates: WorkflowTemplate[] = [
       nodes: [
         { id: 'input-1', type: 'input', position: { x: 50, y: 150 }, data: { label: 'Lead Info', inputType: 'webhook' } },
         { id: 'tool-1', type: 'tool', position: { x: 300, y: 150 }, data: { label: 'Enrich Data', toolType: 'api-call' } },
-        { id: 'llm-1', type: 'llm', position: { x: 550, y: 150 }, data: { label: 'Score Lead', model: 'claude-3-sonnet', prompt: 'Analyze this lead and provide a score 1-100' } },
+        { id: 'llm-1', type: 'llm', position: { x: 550, y: 150 }, data: { label: 'Score Lead', model: 'claude-4-sonnet', prompt: 'Analyze this lead and provide a score 1-100' } },
         { id: 'router-1', type: 'router', position: { x: 800, y: 150 }, data: { label: 'High Value?', condition: 'score > 70' } },
         { id: 'output-1', type: 'output', position: { x: 1050, y: 100 }, data: { label: 'Priority Queue', outputType: 'api-response' } },
         { id: 'output-2', type: 'output', position: { x: 1050, y: 200 }, data: { label: 'Standard Queue', outputType: 'api-response' } },
@@ -73,9 +73,9 @@ const templates: WorkflowTemplate[] = [
       name: 'Content Generator',
       nodes: [
         { id: 'input-1', type: 'input', position: { x: 50, y: 200 }, data: { label: 'Blog Post', inputType: 'text' } },
-        { id: 'llm-1', type: 'llm', position: { x: 300, y: 100 }, data: { label: 'Twitter Thread', model: 'claude-3-haiku', prompt: 'Convert to a Twitter thread' } },
-        { id: 'llm-2', type: 'llm', position: { x: 300, y: 200 }, data: { label: 'LinkedIn Post', model: 'claude-3-haiku', prompt: 'Convert to a LinkedIn post' } },
-        { id: 'llm-3', type: 'llm', position: { x: 300, y: 300 }, data: { label: 'Email Newsletter', model: 'claude-3-sonnet', prompt: 'Convert to an email newsletter' } },
+        { id: 'llm-1', type: 'llm', position: { x: 300, y: 100 }, data: { label: 'Twitter Thread', model: 'claude-4-haiku', prompt: 'Convert to a Twitter thread' } },
+        { id: 'llm-2', type: 'llm', position: { x: 300, y: 200 }, data: { label: 'LinkedIn Post', model: 'claude-4-haiku', prompt: 'Convert to a LinkedIn post' } },
+        { id: 'llm-3', type: 'llm', position: { x: 300, y: 300 }, data: { label: 'Email Newsletter', model: 'claude-4-sonnet', prompt: 'Convert to an email newsletter' } },
         { id: 'output-1', type: 'output', position: { x: 550, y: 200 }, data: { label: 'Content Package', outputType: 'display' } },
       ],
       edges: [
