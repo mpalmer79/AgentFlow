@@ -1,7 +1,18 @@
-import { Link } from 'react-router-dom'
 import { Home, RefreshCw, Search, Workflow } from 'lucide-react'
 
-export function NotFound() {
+interface NotFoundProps {
+  onGoHome?: () => void
+}
+
+export function NotFound({ onGoHome }: NotFoundProps) {
+  const handleGoHome = () => {
+    if (onGoHome) {
+      onGoHome()
+    } else {
+      window.location.href = '/'
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center p-6">
       {/* Animated background nodes */}
@@ -73,13 +84,13 @@ export function NotFound() {
 
         {/* Action buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link
-            to="/"
+          <button
+            onClick={handleGoHome}
             className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-violet-600 to-blue-600 hover:from-violet-500 hover:to-blue-500 text-white font-medium rounded-xl transition-all duration-200 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40"
           >
             <Home className="w-5 h-5" />
             Back to Home
-          </Link>
+          </button>
           <button
             onClick={() => window.history.back()}
             className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium rounded-xl transition-all duration-200 border border-slate-700"
@@ -95,9 +106,12 @@ export function NotFound() {
             <Search className="w-4 h-4" />
             <span>
               Try checking the URL or{' '}
-              <Link to="/" className="text-violet-400 hover:text-violet-300 underline underline-offset-2">
+              <button 
+                onClick={handleGoHome}
+                className="text-violet-400 hover:text-violet-300 underline underline-offset-2"
+              >
                 start a new workflow
-              </Link>
+              </button>
             </span>
           </div>
         </div>
